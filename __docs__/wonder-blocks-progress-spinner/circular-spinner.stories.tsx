@@ -145,6 +145,27 @@ Inline.parameters = {
     },
 };
 
+export const Deterministic: StoryComponentType = () => {
+    const [progress, setProgress] = React.useState(0);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            setProgress((prevState) => (prevState + 7) % 100);
+        }, 2500);
+        return () => clearInterval(interval);
+    }, []);
+
+    return <CircularSpinner progress={progress} />;
+};
+
+Deterministic.parameters = {
+    docs: {
+        description: {
+            story: `\`<CircularSpinner>\` can accept a \`progress\` prop to make it deterministic`,
+        },
+    },
+};
+
 export const WithStyle: StoryComponentType = () => {
     const spinnerStyle = {
         border: `solid 5px ${color.teal}`,
